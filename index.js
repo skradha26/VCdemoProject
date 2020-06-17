@@ -67,7 +67,7 @@ app.post('/verifyCredential', async(req,res) => {
 
 // on the actual issuer I believe this would be an ed25519
 // key pair that a wallet has authorized the issuer to use.
-
+// in real-world scenario, code to setup issuer and subject keypair will be running in separate agents
 let issuerKeyPair, issuerKeyDid = null;
 let subjectKeyPair, subjectKeyDid = null;
 let presentation = null;
@@ -77,8 +77,7 @@ const getAssertionMethod = didKey => {
   return didKey.assertionMethod[0];
 };
 
-// This is really an admin function of vc-js in order to resolved DIDdocs from keys, etc.
-// Should really be in its own file...
+//move documentLoader to separate file
 
 const documentLoader = extendContextLoader(async url => {
   // this fetches the entire did document
@@ -276,7 +275,7 @@ app.listen(port, () => console.log(`Example app listening on port ${port}!`))
 async function setupIssuerKeyPair() {
   // this produces a keypair with private key material
   // in a real situation, subject might provide their DID 
-
+  // in a real world, issuer key pair will not in the code but supplied to the code by the issuing agent from the issuer's wallet
    const privateKeyBase58 = '4H66UGVXEoK2EHMS75eWEjHBwF2CTrPdcYsLSoXLxromDfcZUhCPiiVkLbJAXxrL8M8y7YTQpbb5EKqc9NnN9S3L'
 const options = {
     publicKeyBase58: 'B1BoAENvkZFa1EMnXksUUg1JFeZGAg2CWrLYMzdquA4i',
@@ -296,7 +295,8 @@ const options = {
   issuer and subject are same in this example
   in a real-world scenario, subject's DID also needs to be published
   in a resolvable URL like did.json published for issuer.
-  setupSubjectKeyPair needs to be changed accordingly.
+  setupSubjectKeyPair needs to be changed so that the subject key pair is fetched from the subject wallet and
+  supplied to the code.
 
 */
 async function setupSubjectKeyPair() {
@@ -337,6 +337,8 @@ async function  issueCredential (ide) {
 
  console.log("Credential issuing service...\n");
  
+ // copy sample credential.json to your local directory where the code is present
+ // change the directory path in the below line
  const credentialString = fs.readFileSync("/Users/sradha/PhD_Research_2020/digitalbazaar_experiments/credential.json").toString();
  //console.log(credentialString);
  //console.log(JSON.parse(credentialString)); 
