@@ -9,6 +9,27 @@
 
 // (Also useful: https://github.com/digitalbazaar/did-cli)
 
+
+/*
+This is a demo project which uses vc-js library to issue and verify credential, create verifiable presentation
+and verify proof provided.
+
+In order to issue a credential, identifier of the credential subject is requested through a simple form.
+The id is used in the credential to create a unqiue identifier for the credential.
+All other values are stored in credential.json for this demo.
+
+Upcoming update:
+1) Move issuer and subject key pair generation to separate files.
+2) Verify form allows user to upload the credential to be verified from a file
+3) Verify proof needs a form 
+4) Use multiple signatures to sign the presentation so that a proof set can be created in the credential.
+   This will be useful to transfer custody of a design flow or any digital asset from one individual or
+   organisation to another
+5) Stronger and more secure challenge parameter needs to be used for proof verification
+
+
+*/
+
 var fs = require("fs");
 const {extendContextLoader} = require('jsonld-signatures');
 const vc = require('vc-js');
