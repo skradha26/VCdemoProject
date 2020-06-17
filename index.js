@@ -2,7 +2,7 @@
 
 // This is built on https://github.com/digitalbazaar/vc-js 
 
-// We're exploring using did:web, so we can add value to DOIs...
+
 // https://w3c-ccg.github.io/did-method-web/
 // https://github.com/decentralized-identity/web-did-resolver
 
